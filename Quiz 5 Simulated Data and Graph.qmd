@@ -1,0 +1,49 @@
+---
+title: "Quiz 5"
+author: "Hari Lee"
+format: pdf
+---
+```{r}
+#### Workspace setup ####
+library(tidyverse)
+library(ggplot2)
+```
+
+```{r}
+
+#Simulate the 20 person height measurement per friend
+
+set.seed(123)
+
+# Simulate data
+friends <- c("Rol", "Mike", "Matt", "Jacki", "Ash")
+person <- 1:20
+
+simulated_data <- data.frame(
+  Friend = rep(friends, each = 20),
+  Person = rep(person, times = 5),
+  Height = sample(149:182, 100, replace = TRUE) 
+)
+
+simulated_data
+
+# Test 1
+simulated_data$Height|> min() >=149
+simulated_data$Height|> max()==182
+
+# Test 2
+length(unique(simulated_data$Friend)) == 5
+
+#Test 3
+length(unique(simulated_data$Person)) == 20
+
+
+#Bar Graph
+
+ggplot(simulated_data, aes(x = factor(Person), y = Height, fill = Friend)) +
+  geom_col(position = "dodge") +
+  theme_minimal() +
+  labs(x = "Person", y = "Height", fill = "Friend")
+
+```
+
